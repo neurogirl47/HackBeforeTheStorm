@@ -1,0 +1,25 @@
+{
+  "name": "stable",
+  "version": "1.0.0",
+  "description": "SBA Hackathon project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neurogirl47/HackBeforeTheStorm.git"
+  },
+  "keywords": [
+    "hackathon"
+  ],
+  "author": "Udochi Okeke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neurogirl47/HackBeforeTheStorm/issues"
+  },
+  "homepage": "https://github.com/neurogirl47/HackBeforeTheStorm#readme",
+  "dependencies": {
+    "authorizenet": "^1.0.7"
+  }
+}

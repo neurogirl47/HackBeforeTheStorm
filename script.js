@@ -9,15 +9,20 @@
 
 'use strict';
 
-var ApiContracts = require('authorizenet').APIContracts;
-var ApiControllers = require('authorizenet').APIControllers;
-var constants = require('../constants.js');
+import { APIContracts as ApiContracts } from 'authorizenet';
+import { APIControllers as ApiControllers } from 'authorizenet';
+import { apiLoginKey, transactionKey } from 'constants';
+var request = new XMLHttpRequest();
+request.open('GET', 'https://www.fema.gov/api/open/v1/FemaWebDisasterDeclarations', true);
+
+
+let customerzipcode = document.getElementById("customerzip");
 
 function getCustomerShippingAddress(customerProfileId, customerAddressId, callback) {
 
 	var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-	merchantAuthenticationType.setName(constants.apiLoginKey);
-	merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+	merchantAuthenticationType.setName(apiLoginKey);
+	merchantAuthenticationType.setTransactionKey(transactionKey);
 	
 	var getRequest = new ApiContracts.GetCustomerShippingAddressRequest();
 	getRequest.setMerchantAuthentication(merchantAuthenticationType);
@@ -47,7 +52,8 @@ function getCustomerShippingAddress(customerProfileId, customerAddressId, callba
 				console.log(response.getAddress().getAddress());
 				console.log(response.getAddress().getCity());
 				console.log(response.getAddress().getState());
-				var customerzip = response.getAddress().getZip();
+                var customerzip = response.getAddress().getZip();
+                customerzipcode.innerHTML = customerzip;
 				console.log(response.getAddress().getCountry());
 			}
 			else
@@ -72,4 +78,13 @@ if (require.main === module) {
 	});
 }
 
-module.exports.getCustomerShippingAddress = getCustomerShippingAddress;
+const _getCustomerShippingAddress = getCustomerShippingAddress;
+export { _getCustomerShippingAddress as getCustomerShippingAddress };
+
+let mycustomerid = 1507728318;
+let myaddressid = 1507207379;
+let mycallback = function(){
+    console.log('getCustomerShippingAddress call complete.');
+}
+
+getCustomerShippingAddress(mycustomerid, myaddressid, mycallback);
